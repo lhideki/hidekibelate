@@ -10,16 +10,11 @@ export const handler = (event, context, callback) => {
   const command = event.queryStringParameters.command
   const userName = event.queryStringParameters.user_name
 
-  if (!/^\/hidekibelate$/.test(command)) {
+  if (!/^\/belate$/.test(command)) {
     callback(null, errorResponse(`Slash command(${command}) is not different.`))
 
     return
   }
-
-//  if (userName !== 'hideki') {
-//    callback(null, errorResponse(`You(${userName}) has not permissions.`))
-//    return
-//  }
 
   let operand
   let value
@@ -47,11 +42,8 @@ export const handler = (event, context, callback) => {
   }
 
   const now = new Date()
-
-  const printingValue = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ${reportingHour}時頃の出社となります。`
+  const printingValue = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate() + 1}日 ${reportingHour}時頃の出社となります。`
   const mesg = `${userName}は、${printingValue}`
-
-  console.log(mesg)
 
   const response = {
     statusCode: 200,
@@ -65,8 +57,8 @@ export const handler = (event, context, callback) => {
     })
   }
 
-  callback(null, response)
   sendemail(mesg)
+  callback(null, response)
 }
 
 const errorResponse = (mesg) => {

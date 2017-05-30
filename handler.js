@@ -77,6 +77,7 @@ const errorResponse = (callback, mesg) => {
   })
 }
 
+// eslint-disable-next-line no-unused-vars
 const sendemailBySNS = (callback, mesg) => {
   const sns = new AWS.SNS({
     apiVersion: '2010-03-31',

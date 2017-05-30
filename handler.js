@@ -1,6 +1,8 @@
 import AWS from 'aws-sdk'
 
 const BASE_HOUR = 10
+const SENDEMAIL_FROM = 'hideki@inoue-kobo.com'
+const SENDEMAIL_TO_LIST = ['hideki@inoue-kobo.com']
 
 export const handler = (event, context, callback) => {
   const text = event.queryStringParameters.text
@@ -99,7 +101,7 @@ const sendmailBySES = (callback, mesg) => {
   })
   ses.sendEmail({
     Destination: {
-      ToAddresses: [ 'hideki@inoue-kobo.com' ]
+      ToAddresses: SENDEMAIL_TO_LIST
     },
     Message: {
       Subject: {
@@ -113,7 +115,7 @@ const sendmailBySES = (callback, mesg) => {
         }
       }
     },
-    Source: 'hideki@inoue-kobo.com'
+    Source: SENDEMAIL_FROM
   }, (error, data) => {
     if (error) {
       errorResponse(callback, error)
